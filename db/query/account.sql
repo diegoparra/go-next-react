@@ -13,11 +13,21 @@ INSERT INTO accounts (
 
 
 -- name: GetAccount :one
-SELECT * FROM accounts 
+SELECT * FROM accounts
 WHERE id = $1 LIMIT 1;
 
 -- name: GetAccounts :many
-SELECT * FROM accounts a
+SELECT 
+a.id,
+a.user_id,
+a.title,
+a.type,
+a.description,
+a.value,
+a.date,
+a.created_at,
+
+FROM accounts a
 LEFT JOIN categories c ON c.id = a.category_id
 WHERE a.user_id = $1
 AND a.type = $2
